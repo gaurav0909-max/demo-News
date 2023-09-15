@@ -1,0 +1,53 @@
+import React from "react";
+import "../../../app/business/page.css";
+
+function Politics({ politics }) {
+  console.log("myyyyy", politics);
+
+  return (
+    <div className="grid grid-cols-4  gap-4">
+      {politics.slice(0, 8).map((article, index) =>
+      article.urlToImage && (
+        <div key={index} className="card2">
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="card-content relative">
+              <img
+                src={
+                  article.urlToImage
+                    ? article.urlToImage
+                    : "https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png"
+                }
+                className="w-full h-40 rounded-lg" // Adjust the height as needed
+                alt=""
+                style={{ borderRadius: "12px" }}
+              />
+              {/* Overlay Text */}
+              <div className="overlay">
+                <p className="text-sm font-bold align-text-bottom" style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2, // Number of lines to display
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  maxHeight: "90px",
+                }}>
+                  {article.title}
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default Politics;
+
+
+
+
