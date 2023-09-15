@@ -9,7 +9,7 @@ import {  signOut, useSession } from 'next-auth/react';
 import MobileMenu from './MobileMenu'; // Make sure to adjust the path
 import { Menu } from 'react-feather';
 
-export default function header() {
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
 

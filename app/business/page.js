@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/Header/header";
+
 import { useEffect, useState } from "react";
 import {
   BsFacebook,
@@ -14,6 +14,7 @@ import "./page.css";
 import { Loader } from "react-feather";
 import Footer from "@/components/Footer/footer";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
+import Header from "@/components/Header/header";
 export default function Business() {
   const [news, setNews] = useState([]);
 
