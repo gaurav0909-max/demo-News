@@ -78,7 +78,7 @@ export default function Content() {
   const [news, setNews] = useState([]);
   const [politics, setPolitics] = useState([]);
   const [trending, setTrending] = useState([]);
-  // const isScreenWidthLessThan1000 = window.innerWidth < 1000;
+  const isScreenWidthLessThan1000 = window.innerWidth < 1000;
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] = useState(false);

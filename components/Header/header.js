@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import image from './logo.png';
 import Link from 'next/link';
-import {  signOut, useSession } from 'next-auth/react';
+import {  signOut } from 'next-auth/react';
 
 // import { BsList } from 'react-icons/bs';
 import MobileMenu from './MobileMenu'; // Make sure to adjust the path
