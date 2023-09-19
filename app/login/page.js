@@ -71,7 +71,7 @@ const Login = () => {
           </div>
           <button
             className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-[#60a8bc4f] font-medium"
-            onClick={() => signIn("google")}
+            onClick={(e) => signIn("google", { callbackUrl: "https://demo-news-gaurav0909-max.vercel.app/" })}
           >
             <svg
               className="mr-3"
