@@ -5,7 +5,7 @@ function Politics({ politics }) {
   console.log("myyyyy", politics);
 
   return (
-    <div className="grid grid-cols-4  gap-4">
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
       {politics.slice(0, 8).map((article, index) =>
       article.urlToImage && (
         <div key={index} className="card2">
@@ -15,7 +15,7 @@ function Politics({ politics }) {
             rel="noopener noreferrer"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <div className="card-content relative">
+            <div className=" relative">
               <img
                 src={
                   article.urlToImage

@@ -15,8 +15,10 @@ import { Loader } from "react-feather";
 import Footer from "@/components/Footer/footer";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
 import Header from "@/components/Header/header";
+import Link from "next/link";
 export default function Business() {
   const [news, setNews] = useState([]);
+  const [recentNews, setRecentnews] = useState([]);
 
   async function logMovies() {
     const response = await fetch(
@@ -31,7 +33,20 @@ export default function Business() {
 
   useEffect(() => {
     logMovies();
+    RecentMovies();
   }, []);
+
+  async function RecentMovies() {
+    const response = await fetch(
+      `${BASE_URL}/top-headlines?sources=business-insider&apiKey=${API_KEY}`
+    );
+
+    const recentMovies = await response.json();
+    console.log("recentMovies", recentMovies);
+    setRecentnews(recentMovies?.articles);
+  }
+
+  console.log("recentNews", recentNews);
 
   return (
     <div>
@@ -47,6 +62,7 @@ export default function Business() {
               width: "100%",
               textAlign: "center",
               fontSize: "32px",
+              textDecorationStyle: "dashed",
             }}
           >
             Business
@@ -81,13 +97,13 @@ export default function Business() {
             className="grid grid-cols-1   lg:grid-cols-2 gap-4 h-5/6 py-10 "
             style={{ flex: "75%" }}
           >
-            {news?.slice(0,10).map(
+            {news?.slice(0, 10).map(
               (data, index) =>
                 data.urlToImage && (
                   <div
                     className="row-span-1 col-span-1 card"
                     key={index}
-                    style={{ margin: "auto" }}
+                   
                   >
                     <a
                       href={data.url}
@@ -271,8 +287,63 @@ export default function Business() {
                 <p className="font-bold">Subscribe</p>
               </button>
             </div>
-            <div className="md:my-10 p-4 m-8" >
-              <img src="https://hqd.mah.mybluehost.me/themes/newsophy/main/wp-content/uploads/2022/09/banner-1.jpg" style={{borderRadius:'20px'}}/>
+            <div className="md:my-10 p-4 m-8">
+              <img
+                src="https://hqd.mah.mybluehost.me/themes/newsophy/main/wp-content/uploads/2022/09/banner-1.jpg"
+                style={{ borderRadius: "20px" }}
+              />
+            </div>
+
+            <div
+              className="md:my-10 p-4 m-8"
+              style={{ border: "1px dotted black" }}
+            >
+              <div
+                className="div1 flex   w-full"
+                style={{
+                  height: "40px",
+                  border: "1px solid black",
+                }}
+              >
+                <div style={{ width: "2%", backgroundColor: "black" }}></div>
+                <div
+                  style={{ width: "98%", background: "white" }}
+                  className="text-lg px-2 py-1 font-semibold"
+                >
+                  Recent Posts
+                </div>
+              </div>
+              {recentNews?.slice(0, 4).map((item, index) => {
+                return (
+                  <Link
+                    className="flex gap-4 p-2 my-3 shadow-lg"
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ borderRadius: "10px" }}
+                  >
+                    <div style={{ flex: "35%" }}>
+                      <img
+                        src={item?.urlToImage}
+                        alt=""
+                        style={{
+                          borderRadius: "50%",
+                          height: 90,
+                          width: 90,
+                          padding: 5,
+                        }}
+                      />
+                    </div>
+                    <div
+                      className="flex justify-center items-center"
+                      style={{ flex: "65%" }}
+                    >
+                      {/* Content for the 70% width div */}
+                      <p className="text-sm">{item?.title}</p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

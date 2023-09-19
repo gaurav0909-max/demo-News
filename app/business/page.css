@@ -66,6 +66,24 @@
     .div5 { grid-area: 4 / 1 / 5 / 2; }
     .div6 { grid-area: 4 / 2 / 5 / 3; }
 }
+
+
+@media  screen and (max-width:768px) {
+  .parent {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .div1 { grid-area: 1 / 1 / 2 / 2; }
+    .div2 { grid-area: 4 / 1 / 5 / 2; }
+    .div3 { grid-area: 5 / 1 / 6 / 2; }
+    .div4 { grid-area: 2 / 1 / 4 / 2; }
+    .div5 { grid-area: 6 / 1 / 7 / 2; }
+    .div6 { grid-area: 7 / 1 / 8 / 2; }
+}
   .card:hover {
     animation-name: pulse; /* This is the animate.css pulse animation */
     animation-duration: 2s; /* Customize the animation duration if needed */

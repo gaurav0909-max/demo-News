@@ -4,9 +4,9 @@ import "./Trending.css";
 const Trending = ({ avatars, info }) => {
   console.log("iiii", info);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [screenWidth,setScreenWidth]=useState();
+  const [screenWidth, setScreenWidth] = useState();
   const visibleAvatars = avatars.slice(currentIndex, currentIndex + 4);
-  
+
   useEffect(() => {
     // Update the screenWidth state when the window is resized
     const handleResize = () => {
@@ -22,30 +22,28 @@ const Trending = ({ avatars, info }) => {
   }, [window]);
   return (
     <div
-      className="avatar-container"
+      className="avatar-container mx-auto"
       style={{
         background: "#dfdfdf",
         borderRadius: "15px",
-        margin: "12px",
-        
       }}
     >
       {visibleAvatars
-        .slice(0, screenWidth < 1000 ? 2 : 3)
+        .slice(0, screenWidth < 768 ? 1 : screenWidth < 1000 ? 2 : 3)
         .map((avatar, index) => (
           <a
             href={info[index] && info[index].url}
-            target="_blank" rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
             className="avatar"
             style={{ display: "flex", flexDirection: "row" }}
-            
           >
             <img
               src={avatar}
               alt={`Avatar ${currentIndex + index + 1}`}
               className="rounded-avatar"
             />
-     
+
             {info[index] && ( // Check if info[index] exists
               <div style={{ padding: "10px" }}>
                 <p

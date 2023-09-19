@@ -25,7 +25,7 @@ function Card({ data, index, width, height }) {
   console.log('filteredData', filteredData)
   
   return (
-    <div>
+    <div style={{width:'100%',height:'fit-content'}}>
       <div
         className="row-span-1 col-span-1 card2"
         key={index}
@@ -37,7 +37,7 @@ function Card({ data, index, width, height }) {
           rel="noopener noreferrer"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <div className="card-content relative">
+          <div className=" md:relative flex" >
             <img
               src={
                 data.urlToImage
@@ -49,7 +49,7 @@ function Card({ data, index, width, height }) {
               style={{ width: "100%", borderRadius: "12px", height: height }}
             />
             
-            <div className="overlay absolute top-0 left-0 w-full h-full flex justify-center items-end">
+            <div className=" overlay absolute top-0 left-0 w-full h-full md:flex justify-center items-end">
               <div className=" text-center">
                 <p
                   className="text-sm align-text-bottom"

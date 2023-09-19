@@ -81,6 +81,7 @@ export default function Content() {
   const isScreenWidthLessThan1000 = window.innerWidth < 1000;
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     console.log("window.innerWidth", window.innerWidth);
@@ -234,7 +235,7 @@ console.log('formattedDate', formattedDate);
                     <Card
                       key={index}
                       data={data}
-                      width={isScreenWidthLessThan1000 ? "500px" : "200px"}
+                      width={isScreenWidthLessThan1000 ? "200px" : "200px"}
                       height={"200px"}
                     />
                   ))}
@@ -249,7 +250,7 @@ console.log('formattedDate', formattedDate);
                 style={{ width: "100%", height: "2px", background: "#dfdfdf" }}
               />
             </div>
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
               <Link href="/business">
                 <div className="relative">
                   <img
