@@ -11,6 +11,7 @@ import {
 } from "react-icons/bs";
 import "../business/page.css";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
+import Footer from "@/components/Footer/footer";
 export default function Fashion() {
   const [news, setNews] = useState([]);
 
@@ -31,9 +32,43 @@ export default function Fashion() {
     <div>
       <Header />
       <div className="container mx-auto">
-        <div className="flex flex-row align-middle justify-center pt-5">
-          <p>CATEGORY</p>
-          <p style={{ color: "#858585" }}>:FASHION</p>
+      <div className="container pt-5" style={{ position: "relative" }}>
+          <p
+            className="text-white font-bold underline"
+            style={{
+              position: "absolute",
+              top: "50%",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "32px",
+              textDecorationStyle: "dashed",
+            }}
+          >
+            Fashion
+          </p>
+          <p
+            className="text-white py-3"
+            style={{
+              position: "absolute",
+              top: "65%",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "20px",
+            }}
+          >
+            What helps people, helps business.
+          </p>
+
+          <img
+            src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+            alt=""
+            style={{
+              height: "300px ",
+              width: "100% ",
+              objectFit: "cover",
+              borderRadius: "12px",
+            }}
+          />
         </div>
         <div className="flex">
           <div
