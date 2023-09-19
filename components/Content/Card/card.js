@@ -25,7 +25,7 @@ function Card({ data, index, width, height }) {
   console.log('filteredData', filteredData)
   
   return (
-    <div style={{width:'100%',height:'fit-content'}}>
+    <div style={{height:'fit-content'}}>
       <div
         className="row-span-1 col-span-1 card2"
         key={index}
