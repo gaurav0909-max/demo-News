@@ -94,14 +94,14 @@ export default function Business() {
 
         <div className="md:flex block">
           <div
-            className="grid grid-cols-1   lg:grid-cols-2 gap-4 h-5/6 py-10 "
+            className="grid grid-cols-1   lg:grid-cols-2 gap-4 h-5/6 py-10 mx-auto"
             style={{ flex: "75%" }}
           >
             {news?.slice(0, 10).map(
               (data, index) =>
                 data.urlToImage && (
                   <div
-                    className="row-span-1 col-span-1 card"
+                    className="row-span-1 col-span-1 card m-8 sm:m-auto"
                     key={index}
                    
                   >

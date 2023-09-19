@@ -78,10 +78,28 @@ export default function Content() {
   const [news, setNews] = useState([]);
   const [politics, setPolitics] = useState([]);
   const [trending, setTrending] = useState([]);
-  const isScreenWidthLessThan1000 = window.innerWidth < 1000;
+  // const isScreenWidthLessThan1000 = window.innerWidth < 1000;
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  
+  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] = useState(false);
+
+  useEffect(() => {
+    // Check window.innerWidth when the component mounts
+    const handleResize = () => {
+      setIsScreenWidthLessThan1000(window.innerWidth < 1000);
+    };
+
+    // Attach an event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Initial check
+    handleResize();
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     console.log("window.innerWidth", window.innerWidth);
@@ -215,7 +233,7 @@ console.log('formattedDate', formattedDate);
                     <Card
                       key={index}
                       data={data}
-                      width={"470px"}
+                      width={isScreenWidthLessThan1000 ? "100%" : "470px"}
                       height={"420px"}
                     />
                   ))}
