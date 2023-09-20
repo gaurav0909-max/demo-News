@@ -14,6 +14,7 @@ import Footer from "@/components/Footer/footer";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
 import { UserAuth } from "../context/AuthContext";
 import { auth } from "../firebase";
+import Login from "../login/page";
 export default function Food() {
   const [user, setUser] = useState(null); // Initialize user as null
   const [loading, setLoading] = useState(true);
