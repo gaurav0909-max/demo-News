@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { API_KEY, BASE_URL } from "../utils/utils";
 import { UserAuth } from "@/app/context/AuthContext";
 import Login from "@/app/login/page";
+import { auth } from "@/app/firebase";
 
 // const API_KEY = "75290e46328c45baa61a7ac7114d53b9";
 // const BASE_URL = "${BASE_URL}";
