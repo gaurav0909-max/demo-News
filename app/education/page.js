@@ -5,8 +5,30 @@ import { BsFacebook, BsGithub, BsInstagram, BsLinkedin, BsTwitter, BsYoutube } f
 import "../business/page.css";
 import Footer from "@/components/Footer/footer";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
+import Login from "../login/page";
+import { auth } from "../firebase";
 export default function Education() {
   const [news, setNews] = useState([]);
+  const [user, setUser] = useState(null); // Initialize user as null
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set up the Firebase onAuthStateChanged listener
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setLoading(false); // Loading is complete
+      setUser(currentUser); // Set the current user
+
+      // currentUser will be null if no user is signed in
+      if (currentUser) {
+        console.log("Current user:", currentUser);
+      } else {
+        console.log("No user signed in");
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   async function logMovies() {
     const response = await fetch(
@@ -22,11 +44,48 @@ export default function Education() {
   }, []);
 
   return (
+    <>
+    {!user ?(<Login/>):
     <div>
       <Header />
       <div className="container mx-auto">
-      <div className="flex flex-row align-middle justify-center pt-5">
-          <p>CATEGORY</p><p style={{color:'#858585'}}>:EDUCATION</p>
+      <div className="container pt-5" style={{ position: "relative" }}>
+          <p
+            className="text-white font-bold underline"
+            style={{
+              position: "absolute",
+              top: "50%",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "32px",
+              textDecorationStyle: "dashed",
+            }}
+          >
+            Education
+          </p>
+          <p
+            className="text-white py-3"
+            style={{
+              position: "absolute",
+              top: "65%",
+              width: "100%",
+              textAlign: "center",
+              fontSize: "20px",
+            }}
+          >
+           Education is the thing no one can take away from you
+          </p>
+
+          <img
+            src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2128&q=80"
+            alt=""
+            style={{
+              height: "300px ",
+              width: "100% ",
+              objectFit: "cover",
+              borderRadius: "12px",
+            }}
+          />
         </div>
         <div className="flex">
           <div
@@ -222,5 +281,8 @@ export default function Education() {
       </div>
       <Footer/>
     </div>
+  }
+    </>
+             
   );
 }

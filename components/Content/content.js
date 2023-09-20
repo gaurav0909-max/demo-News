@@ -12,6 +12,9 @@ import Player from "./VideoPlayer/player";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { API_KEY, BASE_URL } from "../utils/utils";
+import { UserAuth } from "@/app/context/AuthContext";
+import Login from "@/app/login/page";
+
 // const API_KEY = "75290e46328c45baa61a7ac7114d53b9";
 // const BASE_URL = "${BASE_URL}";
 const USER_AGENT = "localhost";
@@ -78,10 +81,31 @@ export default function Content() {
   const [news, setNews] = useState([]);
   const [politics, setPolitics] = useState([]);
   const [trending, setTrending] = useState([]);
-  const isScreenWidthLessThan1000 = window.innerWidth < 1000;
+
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] = useState(false);
+  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] =
+    useState(false);
+
+  const [user, setUser] = useState(null); // Initialize user as null
+
+  useEffect(() => {
+    // Set up the Firebase onAuthStateChanged listener
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setLoading(false); // Loading is complete
+      setUser(currentUser); // Set the current user
+
+      // currentUser will be null if no user is signed in
+      if (currentUser) {
+        console.log("Current user:", currentUser);
+      } else {
+        console.log("No user signed in");
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     // Check window.innerWidth when the component mounts
@@ -90,14 +114,14 @@ export default function Content() {
     };
 
     // Attach an event listener for window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Initial check
     handleResize();
 
     // Cleanup the event listener when the component unmounts
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -121,18 +145,18 @@ export default function Content() {
       setLoading(false);
     });
     console.log("pp", politics);
-   
+
     console.log("rr", trendingImages);
   }, [isScreenWidthLessThan1000]);
- 
-  const router = useRouter()
+
+  const router = useRouter();
   const avatars = trending
     .filter((item) => item.urlToImage)
     .map((item) => item.urlToImage);
   const info = trending.map((item) => ({
     title: item.title,
     publishedAt: item.publishedAt,
-    url:item.url
+    url: item.url,
   }));
   console.log("info", info);
 
@@ -142,15 +166,20 @@ export default function Content() {
   console.log("politics", politics);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    router.push(`search/${query}`)
+
+    router.push(`search/${query}`);
   };
 
   const date = new Date();
-const options = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
-const formattedDate = date.toLocaleDateString('en-US', options);
+  const options = {
+    weekday: "long",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  };
+  const formattedDate = date.toLocaleDateString("en-US", options);
 
-console.log('formattedDate', formattedDate);
+  console.log("formattedDate", formattedDate);
 
   return (
     <div
@@ -161,12 +190,13 @@ console.log('formattedDate', formattedDate);
         alignItems: "center",
       }}
     >
-      {loading ? (
+      {!user ? (
+       <Login />
+      ) : loading ? (
         <Loader />
       ) : (
         <div>
-          <div className="pt-2 flex justify-between items-center mx-auto text-gray-600" >
-            
+          <div className="pt-2 flex justify-between items-center mx-auto text-gray-600">
             <form onSubmit={handleSubmit} className="w-full max-w-sm p-4">
               <div className=" flex items-stretch p-2">
                 <input
@@ -184,11 +214,16 @@ console.log('formattedDate', formattedDate);
               <p className="text-sm">{formattedDate}</p>
             </div>
           </div>
-          
+
           <div className="flex items-center px-1">
             <p className="text-xl  p-4">Bollywood News</p>
             <hr
-              style={{ width: "100%", height: "2px", background: "#dfdfdf",margin:'auto' }}
+              style={{
+                width: "100%",
+                height: "2px",
+                background: "#dfdfdf",
+                margin: "auto",
+              }}
             />
           </div>
           <div className="p-3 flex justify-center items-center mx-auto text-gray-600 ">
@@ -204,7 +239,7 @@ console.log('formattedDate', formattedDate);
                       width: "100%",
                       height: "2px",
                       background: "#dfdfdf",
-                      margin:'auto'
+                      margin: "auto",
                     }}
                   />
                 </div>
@@ -286,52 +321,52 @@ console.log('formattedDate', formattedDate);
                 </div>
               </Link>
               <Link href="/fashion">
-              <div className="relative">
-                <img
-                  src="https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man_158538-19393.jpg?w=1380&t=st=1694516306~exp=1694516906~hmac=e45cd022afcdcae8353a0c0d9cc27fca78cd3850afc579870269c94e2839fd31"
-                  alt=""
-                  style={{ borderRadius: "15px" }}
-                />
-                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-end">
-                  <div className="text-white text-center">
-                    <p className="text-md font-semibold align-text-bottom">
-                      Fashion
-                    </p>
+                <div className="relative">
+                  <img
+                    src="https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man_158538-19393.jpg?w=1380&t=st=1694516306~exp=1694516906~hmac=e45cd022afcdcae8353a0c0d9cc27fca78cd3850afc579870269c94e2839fd31"
+                    alt=""
+                    style={{ borderRadius: "15px" }}
+                  />
+                  <div className="absolute top-0 left-0 w-full h-full flex justify-center items-end">
+                    <div className="text-white text-center">
+                      <p className="text-md font-semibold align-text-bottom">
+                        Fashion
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
               </Link>
               <Link href="/education">
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1510531704581-5b2870972060?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80"
-                  alt=""
-                  style={{ borderRadius: "15px" }}
-                />
-                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-end">
-                  <div className="text-white text-center">
-                    <p className="text-md font-semibold align-text-bottom">
-                      Education
-                    </p>
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1510531704581-5b2870972060?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80"
+                    alt=""
+                    style={{ borderRadius: "15px" }}
+                  />
+                  <div className="absolute top-0 left-0 w-full h-full flex justify-center items-end">
+                    <div className="text-white text-center">
+                      <p className="text-md font-semibold align-text-bottom">
+                        Education
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
               </Link>
               <Link href="/travel">
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                  alt=""
-                  style={{ borderRadius: "15px" }}
-                />
-                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-end">
-                  <div className="text-white text-center">
-                    <p className="text-md font-semibold align-text-bottom">
-                      Travel
-                    </p>
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt=""
+                    style={{ borderRadius: "15px" }}
+                  />
+                  <div className="absolute top-0 left-0 w-full h-full flex justify-center items-end">
+                    <div className="text-white text-center">
+                      <p className="text-md font-semibold align-text-bottom">
+                        Travel
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
               </Link>
             </div>
           </div>

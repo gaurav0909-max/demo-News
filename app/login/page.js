@@ -1,11 +1,17 @@
 "use client";
 import React from "react";
-import { signIn } from "next-auth/react";
-
 import { useRouter } from "next/navigation";
+import { UserAuth } from "../context/AuthContext";
 const Login = () => {
+  const { googleSignIn } = UserAuth();
   const router = useRouter();
-
+  const handleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <section className="bg-[#e3e3e3] min-h-screen flex box-border justify-center items-center">
       <div className="bg-[#dfa674]  rounded-2xl flex max-w-3xl p-5 items-center">
@@ -71,7 +77,7 @@ const Login = () => {
           </div>
           <button
             className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-[#60a8bc4f] font-medium"
-            onClick={() => signIn("google")}
+            onClick={handleSignIn}
           >
             <svg
               className="mr-3"

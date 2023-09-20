@@ -6,10 +6,10 @@ function Footer() {
   return (
     <div className='container mx-auto' style={{background:'#dfdfdf',borderRadius:'8px'}}>
     <div className='blog-logo py-6'>
-      <p className='text-amber-600 text-center' style={{fontSize:'24px'}}>  ▼△▼△ 𝙼𝚎𝚍𝚒𝚊 𝚖𝚊𝚐𝚗𝚎𝚝 ▼△▼△</p>
+      <p className='text-amber-600 text-center sm:text-2xl text-xl' >  ▼△▼△ 𝙼𝚎𝚍𝚒𝚊 𝚖𝚊𝚐𝚗𝚎𝚝 ▼△▼△</p>
     </div>
     <div className='menu-footer menu-container'>
-      <ul className='uppercase flex flex-row gap-4 items-center justify-center  p-2 text-amber-800' >
+      <ul className='uppercase flex flex-col sm:flex-row gap-4 items-center justify-center  p-2 text-amber-800' >
         <li>About us</li>
         <li>Contact</li>
         <li>Home page</li>

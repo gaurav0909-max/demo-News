@@ -16,10 +16,31 @@ import Footer from "@/components/Footer/footer";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
 import Header from "@/components/Header/header";
 import Link from "next/link";
+import Login from "../login/page";
+import { auth } from "../firebase";
 export default function Business() {
   const [news, setNews] = useState([]);
   const [recentNews, setRecentnews] = useState([]);
+  const [user, setUser] = useState(null); // Initialize user as null
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    // Set up the Firebase onAuthStateChanged listener
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setLoading(false); // Loading is complete
+      setUser(currentUser); // Set the current user
+
+      // currentUser will be null if no user is signed in
+      if (currentUser) {
+        console.log("Current user:", currentUser);
+      } else {
+        console.log("No user signed in");
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
   async function logMovies() {
     const response = await fetch(
       `${BASE_URL}/top-headlines?country=in&category=business&apiKey=${API_KEY}`
@@ -49,7 +70,8 @@ export default function Business() {
   console.log("recentNews", recentNews);
 
   return (
-    <div>
+    <>
+    {user ? (<div>
       <Header />
 
       <div className="container mx-auto">
@@ -350,6 +372,8 @@ export default function Business() {
       </div>
 
       <Footer />
-    </div>
+    </div>):<Login/>}
+    </>
+   
   );
 }

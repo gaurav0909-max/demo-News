@@ -12,8 +12,30 @@ import {
 import "../business/page.css";
 import { API_KEY, BASE_URL } from "@/components/utils/utils";
 import Footer from "@/components/Footer/footer";
+import Login from "../login/page";
+import { auth } from "../firebase";
 export default function Fashion() {
   const [news, setNews] = useState([]);
+  const [user, setUser] = useState(null); // Initialize user as null
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set up the Firebase onAuthStateChanged listener
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setLoading(false); // Loading is complete
+      setUser(currentUser); // Set the current user
+
+      // currentUser will be null if no user is signed in
+      if (currentUser) {
+        console.log("Current user:", currentUser);
+      } else {
+        console.log("No user signed in");
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   async function logMovies() {
     const response = await fetch(
@@ -29,10 +51,12 @@ export default function Fashion() {
   }, []);
 
   return (
+    <>
+    {!user ?(<Login/>):
     <div>
       <Header />
       <div className="container mx-auto">
-      <div className="container pt-5" style={{ position: "relative" }}>
+        <div className="container pt-5" style={{ position: "relative" }}>
           <p
             className="text-white font-bold underline"
             style={{
@@ -56,7 +80,7 @@ export default function Fashion() {
               fontSize: "20px",
             }}
           >
-            What helps people, helps business.
+            Fashion is like eating, you shouldn't stick to the same menu.
           </p>
 
           <img
@@ -75,7 +99,7 @@ export default function Fashion() {
             className="grid grid-cols-1  lg:grid-cols-2 gap-4 h-5/6 py-10 mx-auto"
             style={{ flex: "75%" }}
           >
-            {news?.slice(0,10).map(
+            {news?.slice(0, 10).map(
               (data, index) =>
                 data.urlToImage && (
                   <div className="row-span-1 col-span-1 card" key={index}>
@@ -256,14 +280,20 @@ export default function Fashion() {
                 <p className="font-bold">Subscribe</p>
               </button>
             </div>
-            <div className="md:my-10 p-4 m-8" >
-              <img src="https://hqd.mah.mybluehost.me/themes/newsophy/main/wp-content/uploads/2022/09/banner-1.jpg" style={{borderRadius:'20px'}}/>
+            <div className="md:my-10 p-4 m-8">
+              <img
+                src="https://hqd.mah.mybluehost.me/themes/newsophy/main/wp-content/uploads/2022/09/banner-1.jpg"
+                style={{ borderRadius: "20px" }}
+              />
             </div>
           </div>
-          
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  );
+
+}
+</>
+         
+);
 }

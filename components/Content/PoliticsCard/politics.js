@@ -22,7 +22,7 @@ function Politics({ politics }) {
                     ? article.urlToImage
                     : "https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png"
                 }
-                className="w-full h-40 rounded-lg" // Adjust the height as needed
+                className="w-full  rounded-lg" // Adjust the height as needed
                 alt=""
                 style={{ borderRadius: "12px" }}
               />
