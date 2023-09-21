@@ -2,11 +2,10 @@ import React from "react";
 import "../../../app/business/page.css";
 
 function Politics({ politics }) {
-  console.log("myyyyy", politics);
 
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4">
-      {politics.slice(0, 8).map((article, index) =>
+    <div className="grid sm:grid-cols-2 md:grid-cols-3   gap-4">
+      {politics.slice(0, ).map((article, index) =>
       article.urlToImage && (
         <div key={index} className="card2">
           <a
@@ -22,7 +21,7 @@ function Politics({ politics }) {
                     ? article.urlToImage
                     : "https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png"
                 }
-                className="w-full  rounded-lg" // Adjust the height as needed
+                className="rounded-lg" // Adjust the height as needed
                 alt=""
                 style={{ borderRadius: "12px" }}
               />
@@ -44,6 +43,7 @@ function Politics({ politics }) {
       ))}
     </div>
   );
+  
 }
 
 export default Politics;

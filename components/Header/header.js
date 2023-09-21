@@ -8,6 +8,7 @@ import { Menu } from "react-feather";
 import { UserAuth } from "@/app/context/AuthContext";
 
 export default function Header() {
+  
   const { logOut } = UserAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);

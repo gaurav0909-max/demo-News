@@ -19,7 +19,6 @@ import Login from "../login/page";
 export default function Sports() {
   const [news, setNews] = useState([]);
   const [recentNews, setRecentNews] = useState([]);
-  const [query, setQuery] = useState("");
   const [user, setUser] = useState(null); // Initialize user as null
   const [loading, setLoading] = useState(true);
 
@@ -46,42 +45,22 @@ export default function Sports() {
       `${BASE_URL}/top-headlines?country=in&category=sports&apiKey=${API_KEY}`
     );
     const movies = await response.json();
-    console.log("djs", movies);
     setNews(movies?.articles);
   }
-
-  // async function changeMovies() {
-  //   const response = await fetch(
-  //     `${BASE_URL}/everything?q=${query}&apiKey=${API_KEY}`
-  //   );
-  //   const movies = await response.json();
-  //   console.log(movies);
-  //   setNews(movies?.articles);
-  // }
-
-  console.log("news", news);
 
   useEffect(() => {
     logMovies();
     RecentMovies();
   }, []);
 
-  const handleChange = async (e) => {
-    console.log(e.target.value);
-    setQuery(e.target.value);
-  };
-
   async function RecentMovies() {
     const response = await fetch(
       `${BASE_URL}/top-headlines?sources=ESPN&apiKey=${API_KEY}`
     );
-
     const recentMovies = await response.json();
-    console.log("recentMovies", recentMovies);
     setRecentNews(recentMovies?.articles);
   }
 
-  console.log("recentNews", recentNews);
   return (
     <>
       {!user ? (

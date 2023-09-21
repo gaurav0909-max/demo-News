@@ -2,7 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { BiLogOut } from 'react-icons/bi'
+import { UserAuth } from "@/app/context/AuthContext";
 const MobileMenu = ({ isOpen, onClose }) => {
+
+  const { logOut }= UserAuth();
   const menuItems = [
     { href: "/business", label: "Business" },
     { href: "/health", label: "Health" },
@@ -13,11 +16,17 @@ const MobileMenu = ({ isOpen, onClose }) => {
   if (!isOpen) {
     return null;
   }
-  const handleSignOut = async(event) => {
-    event.preventDefault();
-    await  signOut({ callbackUrl: 'http://localhost:3000/' })
-    
+
+  const handleSignOut = async (event) => {
+    // event.preventDefault();
+    // await  signOut({ callbackUrl: 'http://localhost:3000/' })
+    try {
+      await logOut();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
+
   return (
     <div className=" bg-opacity-75 m-2" style={{backgroundColor:'#dfdfdf',borderRadius:'10px'}}>
       <div className="flex flex-col  justify-start h-full text-black">
@@ -44,6 +53,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
       </div>
     </div>
   );
+  
 };
 
 export default MobileMenu;

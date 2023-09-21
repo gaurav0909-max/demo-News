@@ -4,6 +4,7 @@ import { BsFacebook, BsGithub, BsTwitter, BsYoutube } from 'react-icons/bs'
 
 function Footer() {
   return (
+
     <div className='container mx-auto' style={{background:'#dfdfdf',borderRadius:'8px'}}>
     <div className='blog-logo py-6'>
       <p className='text-amber-600 text-center sm:text-2xl text-xl' >  ▼△▼△ 𝙼𝚎𝚍𝚒𝚊 𝚖𝚊𝚐𝚗𝚎𝚝 ▼△▼△</p>
@@ -36,6 +37,7 @@ function Footer() {
       </p>
     </div>
     </div>
+    
   )
 }
 

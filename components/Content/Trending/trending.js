@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Trending.css";
 
 const Trending = ({ avatars, info }) => {
-  console.log("iiii", info);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState();
   const visibleAvatars = avatars.slice(currentIndex, currentIndex + 4);
@@ -15,11 +15,11 @@ const Trending = ({ avatars, info }) => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [window]);
+
   return (
     <div
       className="avatar-container mx-auto"
@@ -72,6 +72,7 @@ const Trending = ({ avatars, info }) => {
         ))}
     </div>
   );
+  
 };
 
 export default Trending;

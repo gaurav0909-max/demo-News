@@ -27,7 +27,6 @@ export default function Search() {
       setLoading(false); // Loading is complete
       setUser(currentUser); // Set the current user
 
-      // currentUser will be null if no user is signed in
       if (currentUser) {
         console.log("Current user:", currentUser);
       } else {
@@ -35,11 +34,11 @@ export default function Search() {
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
+
   const params = useParams();
-  console.log("00", params.query);
+
   async function logMovies() {
     try {
       const apiUrl = await fetch(

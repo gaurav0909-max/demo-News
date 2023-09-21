@@ -82,12 +82,9 @@ export default function Content() {
   const [news, setNews] = useState([]);
   const [politics, setPolitics] = useState([]);
   const [trending, setTrending] = useState([]);
-
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] =
-    useState(false);
-
+  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] = useState(false);
   const [user, setUser] = useState(null); // Initialize user as null
 
   useEffect(() => {
@@ -96,15 +93,14 @@ export default function Content() {
       setLoading(false); // Loading is complete
       setUser(currentUser); // Set the current user
 
-      // currentUser will be null if no user is signed in
       if (currentUser) {
         console.log("Current user:", currentUser);
       } else {
         console.log("No user signed in");
       }
+
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
@@ -114,43 +110,44 @@ export default function Content() {
       setIsScreenWidthLessThan1000(window.innerWidth < 1000);
     };
 
-    // Attach an event listener for window resize
     window.addEventListener("resize", handleResize);
 
-    // Initial check
     handleResize();
 
-    // Cleanup the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+
   }, []);
 
   useEffect(() => {
+
     console.log("window.innerWidth", window.innerWidth);
+
     const initialUrl = `${BASE_URL}/top-headlines?country=in&apiKey=${API_KEY}`;
     fetchNewsData(initialUrl)
       .then((articles) => {
         setNews(articles);
-        setLoading(false); // Set loading to false when data is ready
+        setLoading(false); 
       })
-      .catch(() => setLoading(false)); // Set loading to false on error
+      .catch(() => setLoading(false));
+
     const trendingImages = `${BASE_URL}/top-headlines?country=in&category=entertainment&apiKey=${API_KEY}`;
     fetchTrendingData(trendingImages).then((articles) => {
       setTrending(articles);
       setLoading(false);
     });
+
     const politicsData = `${BASE_URL}/top-headlines?country=in&category=technology&apiKey=${API_KEY}`;
     fetchPoliticsData(politicsData).then((articles) => {
       setPolitics(articles);
       setLoading(false);
     });
-    console.log("pp", politics);
 
-    console.log("rr", trendingImages);
   }, [isScreenWidthLessThan1000]);
 
   const router = useRouter();
+
   const avatars = trending
     .filter((item) => item.urlToImage)
     .map((item) => item.urlToImage);
@@ -159,15 +156,9 @@ export default function Content() {
     publishedAt: item.publishedAt,
     url: item.url,
   }));
-  console.log("info", info);
 
-  console.log("loading", loading);
-  console.log("news", news);
-  console.log("trending", trending);
-  console.log("politics", politics);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     router.push(`search/${query}`);
   };
 
@@ -179,8 +170,6 @@ export default function Content() {
     year: "numeric",
   };
   const formattedDate = date.toLocaleDateString("en-US", options);
-
-  console.log("formattedDate", formattedDate);
 
   return (
     <div

@@ -2,8 +2,7 @@ import React from "react";
 import "../../../app/business/page.css";
 
 function Card({ data, index, width, height }) {
-  console.log("====", data);
-  
+
   const overlayStyle = {
     position: "absolute",
     top: 0,
@@ -16,14 +15,6 @@ function Card({ data, index, width, height }) {
     zIndex: 1, // Ensure the overlay is above the image
   };
 
-
-  const dataArray = Object.entries(data);
-  console.log('dataArray', dataArray)
-
-  // Filter the array of key-value pairs based on the presence of urlToImage property
-  const filteredData = dataArray.filter(([key, value]) => key === "urlToImage" && value === null);
-  console.log('filteredData', filteredData)
-  
   return (
     <div style={{height:'fit-content'}}>
       <div
@@ -70,6 +61,7 @@ function Card({ data, index, width, height }) {
       </div>
     </div>
   );
+  
 }
 
 export default Card;

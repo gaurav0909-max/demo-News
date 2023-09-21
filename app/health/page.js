@@ -28,7 +28,6 @@ export default function Health() {
       setLoading(false); // Loading is complete
       setUser(currentUser); // Set the current user
 
-      // currentUser will be null if no user is signed in
       if (currentUser) {
         console.log("Current user:", currentUser);
       } else {
@@ -36,7 +35,6 @@ export default function Health() {
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
@@ -45,7 +43,6 @@ export default function Health() {
       `${BASE_URL}/top-headlines?country=in&category=health&apiKey=${API_KEY}`
     );
     const movies = await response.json();
-    console.log(movies);
     setNews(movies?.articles);
   }
 
@@ -58,13 +55,10 @@ export default function Health() {
     const response = await fetch(
       `${BASE_URL}/top-headlines?sources=medical-news-today&apiKey=${API_KEY}`
     );
-
     const recentMovies = await response.json();
-    console.log("recentMovies", recentMovies);
     setRecentNews(recentMovies?.articles);
   }
 
-  console.log("recentNews", recentNews);
   return (
     <>
       {!user ? (
@@ -144,6 +138,7 @@ export default function Health() {
                                 overflow: "hidden",
                                 maxHeight: "100px", // Height of three lines
                               }}
+                              key={index}
                             >
                               <p
                                 className="text-md lg:text-xl"

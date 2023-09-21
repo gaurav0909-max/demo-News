@@ -6,13 +6,12 @@ import Footer from "../Footer/footer";
 
 function MainComponent() {
   return (
-    <div >
+    <div>
       <Header />
       <Content />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
-
 
 export default MainComponent;

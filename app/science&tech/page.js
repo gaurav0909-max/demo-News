@@ -27,7 +27,6 @@ export default function ScienceTech() {
       setLoading(false); // Loading is complete
       setUser(currentUser); // Set the current user
 
-      // currentUser will be null if no user is signed in
       if (currentUser) {
         console.log("Current user:", currentUser);
       } else {
@@ -35,7 +34,6 @@ export default function ScienceTech() {
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
@@ -49,10 +47,6 @@ export default function ScienceTech() {
 
   async function fetchNews() {
     const scienceNews = await logNews("science");
-
-    console.log("scienceNews", scienceNews);
-    // const techNews = await logNews("technology");
-    // console.log("techNews", techNews);
     const combinedNews = [...scienceNews];
     setNews(combinedNews);
     RecentMovies();
@@ -68,11 +62,8 @@ export default function ScienceTech() {
     );
 
     const recentMovies = await response.json();
-    console.log("recentMovies", recentMovies);
     setRecentNews(recentMovies?.articles);
   }
-
-  console.log("recentnews", recentNews);
 
   return (
     <>
