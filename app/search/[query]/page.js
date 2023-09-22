@@ -19,13 +19,13 @@ import Login from "@/app/login/page";
 export default function Search() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null); 
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false); 
+      setUser(currentUser);
 
       if (currentUser) {
         console.log("Current user:", currentUser);
@@ -35,7 +35,7 @@ export default function Search() {
     });
 
     return () => unsubscribe();
-  }, []);
+  },[]);
 
   const params = useParams();
 

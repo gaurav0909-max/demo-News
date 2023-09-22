@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { UserAuth } from "../context/AuthContext";
 const Login = () => {
-
+  
   const { googleSignIn } = UserAuth();
 
   const router = useRouter();
@@ -15,7 +15,7 @@ const Login = () => {
       console.log("error", error);
     }
   };
-  
+
   return (
     <section className="bg-[#e3e3e3] min-h-screen flex box-border justify-center items-center">
       <div className="bg-[#dfa674]  rounded-2xl flex max-w-3xl p-5 items-center">

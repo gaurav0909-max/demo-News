@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Trending.css";
 
 const Trending = ({ avatars, info }) => {
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState();
   const visibleAvatars = avatars.slice(currentIndex, currentIndex + 4);
@@ -72,7 +71,6 @@ const Trending = ({ avatars, info }) => {
         ))}
     </div>
   );
-  
 };
 
 export default Trending;

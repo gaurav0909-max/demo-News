@@ -23,12 +23,11 @@ export default function Sports() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
 
-      // currentUser will be null if no user is signed in
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setLoading(false);
+      setUser(currentUser); 
+
       if (currentUser) {
         console.log("Current user:", currentUser);
       } else {
@@ -36,7 +35,6 @@ export default function Sports() {
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 

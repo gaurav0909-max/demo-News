@@ -9,13 +9,13 @@
     transition: transform 0.2s, box-shadow 0.2s;
   }
 
-  .card2 {
+.card2 {
     position: relative;
     overflow: hidden;
     width:"100%";
   }
   
-  .overlay {
+.overlay {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -28,7 +28,7 @@
     transition: opacity 0.3s;
   }
   
-  .card2:hover .overlay {
+.card2:hover .overlay {
     opacity: 1;
   }
   
@@ -58,7 +58,6 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     }
-   
     
     .div1 { grid-area: 1 / 1 / 2 / 3; }
     .div2 { grid-area: 2 / 1 / 3 / 2; }
@@ -85,39 +84,35 @@
     .div5 { grid-area: 6 / 1 / 7 / 2; }
     .div6 { grid-area: 7 / 1 / 8 / 2; }
 }
-  .card:hover {
-    animation-name: pulse; /* This is the animate.css pulse animation */
-    animation-duration: 2s; /* Customize the animation duration if needed */
+  
+.card:hover {
+    animation-name: pulse; 
+    animation-duration: 2s; 
   }
   
-  
-  .card-link {
+.card-link {
     text-decoration: none;
     color: inherit;
   }
   
-  .card-content {
+.card-content {
     padding: 10px;
   }
   
-  .card-image {
+.card-image {
     width: 100%;
-  
     border-radius: 12px 12px 0 0;
   }
   
-  .card-title {
-    
+.card-title {
     margin-top: 10px;
     margin-bottom: 5px;
   }
   
   .card-date {
-   
     color: #888;
   }
   
-
   .lg-text {
     font-size: 24px;
   }

@@ -14,8 +14,6 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSignOut = async (event) => {
-    // event.preventDefault();
-    // await  signOut({ callbackUrl: 'http://localhost:3000/' })
     try {
       await logOut();
     } catch (error) {

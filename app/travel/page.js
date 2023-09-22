@@ -16,7 +16,8 @@ import { UserAuth } from "../context/AuthContext";
 import { auth } from "../firebase";
 import Login from "../login/page";
 export default function Food() {
-  const [user, setUser] = useState(null); // Initialize user as null
+
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState([]);
 
@@ -33,10 +34,10 @@ export default function Food() {
   }, []);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false);
+      setUser(currentUser);
 
       if (currentUser) {
         console.log("Current user:", currentUser);

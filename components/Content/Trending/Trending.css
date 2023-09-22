@@ -4,18 +4,18 @@
     position: relative;
   }
   
-  .avatar-container {
+.avatar-container {
     display: flex;
     align-items: center;
     overflow: hidden;
   }
   
-  .avatar {
+.avatar {
     display: flex; /* Display the image and text in a row */
     align-items: center; /* Vertically align content */
     margin-right: 10px; /* Add margin as needed */
   }
-  .rounded-avatar {
+.rounded-avatar {
     padding:10px;
     width: 110px; /* Set the width of the avatar image */
     height: 110px; /* Set the height of the avatar image */

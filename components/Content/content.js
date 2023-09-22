@@ -1,8 +1,6 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import "animate.css";
-// import { BsSearch } from 'react-icons/bs';
 import "../../app/business/page.css";
 import Loader from "../Loader";
 import Card from "./Card/card";
@@ -16,9 +14,8 @@ import { UserAuth } from "@/app/context/AuthContext";
 import Login from "@/app/login/page";
 import { auth } from "@/app/firebase";
 
-// const API_KEY = "75290e46328c45baa61a7ac7114d53b9";
-// const BASE_URL = "${BASE_URL}";
 const USER_AGENT = "localhost";
+
 async function fetchNewsData(url) {
   try {
     const response = await fetch(url, {
@@ -78,13 +75,15 @@ async function fetchTrendingData(url) {
     return [];
   }
 }
+
 export default function Content() {
   const [news, setNews] = useState([]);
   const [politics, setPolitics] = useState([]);
   const [trending, setTrending] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] = useState(false);
+  const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] =
+    useState(false);
   const [user, setUser] = useState(null); // Initialize user as null
 
   useEffect(() => {
@@ -98,7 +97,6 @@ export default function Content() {
       } else {
         console.log("No user signed in");
       }
-
     });
 
     return () => unsubscribe();
@@ -117,18 +115,16 @@ export default function Content() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-
   }, []);
 
   useEffect(() => {
-
     console.log("window.innerWidth", window.innerWidth);
 
     const initialUrl = `${BASE_URL}/top-headlines?country=in&apiKey=${API_KEY}`;
     fetchNewsData(initialUrl)
       .then((articles) => {
         setNews(articles);
-        setLoading(false); 
+        setLoading(false);
       })
       .catch(() => setLoading(false));
 
@@ -143,7 +139,6 @@ export default function Content() {
       setPolitics(articles);
       setLoading(false);
     });
-
   }, [isScreenWidthLessThan1000]);
 
   const router = useRouter();
@@ -181,7 +176,7 @@ export default function Content() {
       }}
     >
       {!user ? (
-       <Login />
+        <Login />
       ) : loading ? (
         <Loader />
       ) : (

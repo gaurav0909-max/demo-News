@@ -16,16 +16,17 @@ import Link from "next/link";
 import { auth } from "../firebase";
 import Login from "../login/page";
 export default function ScienceTech() {
+
   const [news, setNews] = useState([]);
   const [recentNews, setRecentNews] = useState([]);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
+    
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false); 
+      setUser(currentUser); 
 
       if (currentUser) {
         console.log("Current user:", currentUser);
@@ -60,7 +61,6 @@ export default function ScienceTech() {
     const response = await fetch(
       `${BASE_URL}/top-headlines?sources=new-scientist&apiKey=${API_KEY}`
     );
-
     const recentMovies = await response.json();
     setRecentNews(recentMovies?.articles);
   }

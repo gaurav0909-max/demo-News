@@ -5,7 +5,7 @@ function Politics({ politics }) {
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3   gap-4">
-      {politics.slice(0, ).map((article, index) =>
+      {politics.slice(0,6).map((article, index) =>
       article.urlToImage && (
         <div key={index} className="card2">
           <a
@@ -21,11 +21,10 @@ function Politics({ politics }) {
                     ? article.urlToImage
                     : "https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png"
                 }
-                className="rounded-lg" // Adjust the height as needed
+                className="rounded-lg" 
                 alt=""
                 style={{ borderRadius: "12px" }}
               />
-              {/* Overlay Text */}
               <div className="overlay">
                 <p className="text-sm font-bold align-text-bottom" style={{
                   display: "-webkit-box",
