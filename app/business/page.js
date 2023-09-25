@@ -55,7 +55,7 @@ export default function Business() {
 
   async function RecentMovies() {
     const response = await fetch(
-      `${BASE_URL}/top-headlines?sources=business-insider&apiKey=${API_KEY}`
+      `${BASE_URL}/top-headlines?sources=Fortune&apiKey=${API_KEY}`
     );
 
     const recentMovies = await response.json();
