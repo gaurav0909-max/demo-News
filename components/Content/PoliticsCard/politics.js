@@ -21,14 +21,14 @@ function Politics({ politics }) {
                     ? article.urlToImage
                     : "https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png"
                 }
-                className="rounded-lg" 
+                className="w-full h-56 rounded-lg" 
                 alt=""
                 style={{ borderRadius: "12px" }}
               />
               <div className="overlay">
                 <p className="text-sm font-bold align-text-bottom" style={{
                   display: "-webkit-box",
-                  WebkitLineClamp: 2, // Number of lines to display
+                  WebkitLineClamp: 2,
                   WebkitBoxOrient: "vertical",
                   overflow: "hidden",
                   maxHeight: "90px",

@@ -19,7 +19,7 @@ import Login from "../login/page";
 export default function Sports() {
   const [news, setNews] = useState([]);
   const [recentNews, setRecentNews] = useState([]);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -131,10 +131,10 @@ export default function Sports() {
                             <div
                               style={{
                                 display: "-webkit-box",
-                                WebkitLineClamp: 3, // Number of lines to display
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: "vertical",
                                 overflow: "hidden",
-                                maxHeight: "100px", // Height of three lines
+                                maxHeight: "100px", 
                               }}
                             >
                               <p

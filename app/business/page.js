@@ -21,16 +21,15 @@ import { auth } from "../firebase";
 export default function Business() {
   const [news, setNews] = useState([]);
   const [recentNews, setRecentnews] = useState([]);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
+    
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false); 
+      setUser(currentUser); 
 
-      // currentUser will be null if no user is signed in
       if (currentUser) {
         console.log("Current user:", currentUser);
       } else {
@@ -38,7 +37,6 @@ export default function Business() {
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
 
@@ -136,10 +134,10 @@ export default function Business() {
                             <div
                               style={{
                                 display: "-webkit-box",
-                                WebkitLineClamp: 3, // Number of lines to display
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: "vertical",
                                 overflow: "hidden",
-                                maxHeight: "100px", // Height of three lines
+                                maxHeight: "100px", 
                               }}
                             >
                               <p

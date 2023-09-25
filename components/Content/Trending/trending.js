@@ -7,7 +7,7 @@ const Trending = ({ avatars, info }) => {
   const visibleAvatars = avatars.slice(currentIndex, currentIndex + 4);
 
   useEffect(() => {
-    // Update the screenWidth state when the window is resized
+    
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
@@ -42,8 +42,7 @@ const Trending = ({ avatars, info }) => {
               alt={`Avatar ${currentIndex + index + 1}`}
               className="rounded-avatar"
             />
-
-            {info[index] && ( // Check if info[index] exists
+            {info[index] && ( 
               <div style={{ padding: "10px" }}>
                 <p
                   style={{
@@ -52,18 +51,16 @@ const Trending = ({ avatars, info }) => {
                     fontWeight: 600,
                     fontFamily: "Maven pro",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3, // Number of lines to display
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
                     maxHeight: "90px",
                   }}
                 >
-                  {info[index].title}{" "}
-                  {/* Display title from the fetched data */}
+                  {info[index].title}
                 </p>
                 <p style={{ fontSize: "10px" }}>
-                  {info[index].publishedAt}{" "}
-                  {/* Display publishedAt from the fetched data */}
+                  {info[index].publishedAt}
                 </p>
               </div>
             )}

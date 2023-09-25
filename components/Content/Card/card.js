@@ -2,21 +2,8 @@ import React from "react";
 import "../../../app/business/page.css";
 
 function Card({ data, index, width, height }) {
-
-  const overlayStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "rgba(0, 0, 0, 0.3)", // Black with 50% opacity
-    borderRadius: "12px",
-    opacity: 0.7, // Adjust the opacity as needed (0.7 means 70% opacity)
-    zIndex: 1, // Ensure the overlay is above the image
-  };
-
   return (
-    <div style={{height:'fit-content'}}>
+    <div style={{ height: "fit-content" }}>
       <div
         className="row-span-1 col-span-1 card2"
         key={index}
@@ -28,7 +15,7 @@ function Card({ data, index, width, height }) {
           rel="noopener noreferrer"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <div className=" md:relative flex" >
+          <div className=" md:relative flex">
             <img
               src={
                 data.urlToImage
@@ -39,14 +26,13 @@ function Card({ data, index, width, height }) {
               alt=""
               style={{ width: "100%", borderRadius: "12px", height: height }}
             />
-            
             <div className=" overlay absolute top-0 left-0 w-full h-full md:flex justify-center items-end">
               <div className=" text-center">
                 <p
                   className="text-sm align-text-bottom"
                   style={{
                     display: "-webkit-box",
-                    WebkitLineClamp: 3, // Number of lines to display
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
                     maxHeight: "70px",
@@ -61,7 +47,6 @@ function Card({ data, index, width, height }) {
       </div>
     </div>
   );
-  
 }
 
 export default Card;

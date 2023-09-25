@@ -27,10 +27,10 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className=" bg-opacity-75 m-2"
+      className="container bg-opacity-75 mx-auto m-2"
       style={{ backgroundColor: "#dfdfdf", borderRadius: "10px" }}
     >
-      <div className="flex flex-col  justify-start h-full text-black">
+      <div className="flex flex-col  justify-start h-full text-black mx-auto">
         <ul>
           <li>
             {menuItems.map((item, index) => (

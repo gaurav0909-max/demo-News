@@ -10,7 +10,6 @@ import Player from "./VideoPlayer/player";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { API_KEY, BASE_URL } from "../utils/utils";
-import { UserAuth } from "@/app/context/AuthContext";
 import Login from "@/app/login/page";
 import { auth } from "@/app/firebase";
 
@@ -84,13 +83,13 @@ export default function Content() {
   const [loading, setLoading] = useState(true);
   const [isScreenWidthLessThan1000, setIsScreenWidthLessThan1000] =
     useState(false);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false); 
+      setUser(currentUser); 
 
       if (currentUser) {
         console.log("Current user:", currentUser);
@@ -103,7 +102,7 @@ export default function Content() {
   }, []);
 
   useEffect(() => {
-    // Check window.innerWidth when the component mounts
+
     const handleResize = () => {
       setIsScreenWidthLessThan1000(window.innerWidth < 1000);
     };
@@ -192,7 +191,6 @@ export default function Content() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
-                {/* <button onClick={handleEvent()}>Search</button> */}
               </div>
             </form>
             <div className="p-6">
@@ -355,7 +353,6 @@ export default function Content() {
               </Link>
             </div>
           </div>
-
           <div className="world-politics container p-4">
             <div className="heading">
               <div className="flex items-center">

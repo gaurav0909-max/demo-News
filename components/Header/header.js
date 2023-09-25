@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import image from "./logo.png";
 import Link from "next/link";
-import MobileMenu from "./MobileMenu"; // Make sure to adjust the path
+import MobileMenu from "./MobileMenu";
 import { Menu } from "react-feather";
 import { UserAuth } from "@/app/context/AuthContext";
 
@@ -39,7 +39,6 @@ export default function Header() {
             <Image src={image} alt="yujujm" width={70} height={70} />
           </div>
           <div className="md:hidden">
-            {/* Hamburger menu button */}
             <button className="text-black text-2xl" onClick={toggleMenu}>
               <Menu />
             </button>

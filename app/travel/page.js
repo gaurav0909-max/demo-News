@@ -121,10 +121,10 @@ export default function Food() {
                             <div
                               style={{
                                 display: "-webkit-box",
-                                WebkitLineClamp: 3, // Number of lines to display
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: "vertical",
                                 overflow: "hidden",
-                                maxHeight: "100px", // Height of three lines
+                                maxHeight: "100px",
                               }}
                             >
                               <p

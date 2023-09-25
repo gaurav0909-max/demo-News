@@ -16,14 +16,14 @@ import Login from "../login/page";
 import { auth } from "../firebase";
 export default function Fashion() {
   const [news, setNews] = useState([]);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
+    
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false);
+      setUser(currentUser); 
 
       if (currentUser) {
         console.log("Current user:", currentUser);
@@ -81,7 +81,6 @@ export default function Fashion() {
               >
                 Fashion is like eating, you shouldn't stick to the same menu.
               </p>
-
               <img
                 src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&w=1000&q=80"
                 alt=""
@@ -115,14 +114,13 @@ export default function Fashion() {
                               alt={data?.title}
                               style={{ width: "100%", borderRadius: "12px" }}
                             />
-
                             <div
                               style={{
                                 display: "-webkit-box",
-                                WebkitLineClamp: 3, // Number of lines to display
+                                WebkitLineClamp: 3, 
                                 WebkitBoxOrient: "vertical",
                                 overflow: "hidden",
-                                maxHeight: "100px", // Height of three lines
+                                maxHeight: "100px", 
                               }}
                             >
                               <p
@@ -132,7 +130,6 @@ export default function Fashion() {
                                 {data.title}
                               </p>
                             </div>
-
                             <p className="text-sm " style={{ padding: "6px" }}>
                               {data.publishedAt}
                             </p>

@@ -16,14 +16,13 @@ import Login from "../login/page";
 import { auth } from "../firebase";
 export default function Education() {
   const [news, setNews] = useState([]);
-  const [user, setUser] = useState(null); // Initialize user as null
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up the Firebase onAuthStateChanged listener
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); // Loading is complete
-      setUser(currentUser); // Set the current user
+      setLoading(false);
+      setUser(currentUser);
 
       if (currentUser) {
         console.log("Current user:", currentUser);
@@ -115,14 +114,13 @@ export default function Education() {
                               alt={data?.title}
                               style={{ width: "100%", borderRadius: "12px" }}
                             />
-
                             <div
                               style={{
                                 display: "-webkit-box",
-                                WebkitLineClamp: 3, // Number of lines to display
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: "vertical",
                                 overflow: "hidden",
-                                maxHeight: "100px", // Height of three lines
+                                maxHeight: "100px",
                               }}
                             >
                               <p
@@ -132,7 +130,6 @@ export default function Education() {
                                 {data.title}
                               </p>
                             </div>
-
                             <p className="text-sm " style={{ padding: "6px" }}>
                               {data.publishedAt}
                             </p>

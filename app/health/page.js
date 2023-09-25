@@ -353,7 +353,6 @@ export default function Health() {
                           className="flex justify-center items-center"
                           style={{ flex: "65%" }}
                         >
-                          {/* Content for the 70% width div */}
                           <p className="text-sm">{item?.title}</p>
                         </div>
                       </Link>
