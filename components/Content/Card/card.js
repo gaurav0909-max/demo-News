@@ -20,7 +20,7 @@ function Card({ data, index, width, height }) {
               src={
                 data.urlToImage
                   ? data.urlToImage
-                  : "https://resources.alleghenycounty.us/css/images/Default_No_Image_Available.png"
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png"
               }
               className="w-full rounded-lg"
               alt=""

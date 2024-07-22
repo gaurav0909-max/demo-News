@@ -303,7 +303,7 @@ export default function Health() {
                 </div>
                 <div className="md:my-10 p-4 m-8">
                   <img
-                    src="https://hqd.mah.mybluehost.me/themes/newsophy/main/wp-content/uploads/2022/09/banner-1.jpg"
+                    src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/watch-sale-ads-design-template-d3f817a57371c6c34e5595bd29e44b41_screen.jpg?ts=1686300083"
                     style={{ borderRadius: "20px" }}
                   />
                 </div>

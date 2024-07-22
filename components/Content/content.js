@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "animate.css";
 import "../../app/business/page.css";
 import Loader from "../Loader";
@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { API_KEY, BASE_URL } from "../utils/utils";
 import Login from "@/app/login/page";
 import { auth } from "@/app/firebase";
+import DynamicNewsLayout from "./DynamicNews";
 
 const USER_AGENT = "localhost";
 
@@ -75,6 +76,26 @@ async function fetchTrendingData(url) {
   }
 }
 
+async function fetchData(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": USER_AGENT,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    return data.articles || [];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+}
+
 export default function Content() {
   const [news, setNews] = useState([]);
   const [politics, setPolitics] = useState([]);
@@ -85,86 +106,160 @@ export default function Content() {
     useState(false);
   const [user, setUser] = useState(null);
 
+  // useEffect(() => {
+
+  //   const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+  //     setLoading(false); 
+  //     setUser(currentUser); 
+
+  //     if (currentUser) {
+  //       console.log("Current user:", currentUser);
+  //     } else {
+  //       console.log("No user signed in");
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
+
+  // useEffect(() => {
+
+  //   const handleResize = () => {
+  //     setIsScreenWidthLessThan1000(window.innerWidth < 1000);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+
+  //   handleResize();
+
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("window.innerWidth", window.innerWidth);
+
+  //   const initialUrl = `${BASE_URL}/top-headlines?country=in&apiKey=${API_KEY}`;
+  //   fetchNewsData(initialUrl)
+  //     .then((articles) => {
+  //       setNews(articles);
+  //       setLoading(false);
+  //     })
+  //     .catch(() => setLoading(false));
+
+  //   const trendingImages = `${BASE_URL}/top-headlines?country=in&category=entertainment&apiKey=${API_KEY}`;
+  //   fetchTrendingData(trendingImages).then((articles) => {
+  //     setTrending(articles);
+  //     setLoading(false);
+  //   });
+
+  //   const politicsData = `${BASE_URL}/top-headlines?country=in&category=technology&apiKey=${API_KEY}`;
+  //   fetchPoliticsData(politicsData).then((articles) => {
+  //     setPolitics(articles);
+  //     setLoading(false);
+  //   });
+  // }, [isScreenWidthLessThan1000]);
+
+  // const router = useRouter();
+
+  // const avatars = trending
+  //   .filter((item) => item.urlToImage)
+  //   .map((item) => item.urlToImage);
+  // const info = trending.map((item) => ({
+  //   title: item.title,
+  //   publishedAt: item.publishedAt,
+  //   url: item.url,
+  // }));
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   router.push(`search/${query}`);
+  // };
+
+  // const date = new Date();
+  // const options = {
+  //   weekday: "long",
+  //   day: "numeric",
+  //   month: "short",
+  //   year: "numeric",
+  // };
+  // const formattedDate = date.toLocaleDateString("en-US", options);
+  const router = useRouter();
+   
+  
   useEffect(() => {
-
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setLoading(false); 
-      setUser(currentUser); 
+      setLoading(false);
+      setUser(currentUser);
 
-      if (currentUser) {
-        console.log("Current user:", currentUser);
-      } else {
-        console.log("No user signed in");
-      }
+      console.log(currentUser ? "Current user:" : "No user signed in", currentUser);
     });
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-
     const handleResize = () => {
       setIsScreenWidthLessThan1000(window.innerWidth < 1000);
     };
 
     window.addEventListener("resize", handleResize);
-
     handleResize();
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const newsUrl = useMemo(() => `${BASE_URL}/top-headlines?country=in&apiKey=${API_KEY}`, []);
+  const trendingUrl = useMemo(() => `${BASE_URL}/top-headlines?country=in&category=entertainment&apiKey=${API_KEY}`, []);
+  const politicsUrl = useMemo(() => `${BASE_URL}/top-headlines?country=in&category=technology&apiKey=${API_KEY}`, []);
 
   useEffect(() => {
     console.log("window.innerWidth", window.innerWidth);
 
-    const initialUrl = `${BASE_URL}/top-headlines?country=in&apiKey=${API_KEY}`;
-    fetchNewsData(initialUrl)
-      .then((articles) => {
-        setNews(articles);
+    const fetchAllData = async () => {
+      setLoading(true);
+
+      try {
+        const [newsArticles, trendingArticles, politicsArticles] = await Promise.all([
+          fetchNewsData(newsUrl),
+          fetchTrendingData(trendingUrl),
+          fetchPoliticsData(politicsUrl),
+        ]);
+        setNews(newsArticles);
+        setTrending(trendingArticles);
+        setPolitics(politicsArticles);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
 
-    const trendingImages = `${BASE_URL}/top-headlines?country=in&category=entertainment&apiKey=${API_KEY}`;
-    fetchTrendingData(trendingImages).then((articles) => {
-      setTrending(articles);
-      setLoading(false);
-    });
+    fetchAllData();
+  }, [newsUrl, trendingUrl, politicsUrl, isScreenWidthLessThan1000]);
 
-    const politicsData = `${BASE_URL}/top-headlines?country=in&category=technology&apiKey=${API_KEY}`;
-    fetchPoliticsData(politicsData).then((articles) => {
-      setPolitics(articles);
-      setLoading(false);
-    });
-  }, [isScreenWidthLessThan1000]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    router.push(`search/${query}`);
+  };
+  console.log('news', news)
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString("en-US", {
+    weekday: "long",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 
-  const router = useRouter();
-
-  const avatars = trending
-    .filter((item) => item.urlToImage)
-    .map((item) => item.urlToImage);
+  const avatars = trending.filter((item) => item.urlToImage).map((item) => item.urlToImage);
+  console.log('avatars', avatars)
   const info = trending.map((item) => ({
     title: item.title,
     publishedAt: item.publishedAt,
     url: item.url,
   }));
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    router.push(`search/${query}`);
-  };
-
-  const date = new Date();
-  const options = {
-    weekday: "long",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  };
-  const formattedDate = date.toLocaleDateString("en-US", options);
-
+  console.log('info', info)
   return (
     <div
       style={{
@@ -214,69 +309,7 @@ export default function Content() {
           </div>
           <div>
             <>
-              <div className="parent">
-                <div className="div1 flex justify-start items-center px-3 ">
-                  <h3 className="text-xl p-2">Trending Now</h3>
-                  <hr
-                    style={{
-                      width: "100%",
-                      height: "2px",
-                      background: "#dfdfdf",
-                      margin: "auto",
-                    }}
-                  />
-                </div>
-                <div className="div2 p-4 flex justify-center " style={{}}>
-                  {news.slice(0, 1).map((data, index) => (
-                    <Card
-                      key={index}
-                      data={data}
-                      width={"200px"}
-                      height={"200px"}
-                    />
-                  ))}
-                </div>
-                <div className="div3 p-4 flex justify-center">
-                  {news.slice(1, 2).map((data, index) => (
-                    <Card
-                      key={index}
-                      data={data}
-                      width={"200px"}
-                      height={"200px"}
-                    />
-                  ))}
-                </div>
-                <div className="div4 p-4  flex justify-center">
-                  {news.slice(2, 3).map((data, index) => (
-                    <Card
-                      key={index}
-                      data={data}
-                      width={isScreenWidthLessThan1000 ? "100%" : "470px"}
-                      height={"420px"}
-                    />
-                  ))}
-                </div>
-                <div className="div5 p-4  flex justify-center">
-                  {news.slice(3, 4).map((data, index) => (
-                    <Card
-                      key={index}
-                      data={data}
-                      width={"200px"}
-                      height={"200px"}
-                    />
-                  ))}
-                </div>
-                <div className="div6 p-4  flex justify-center">
-                  {news.slice(4, 5).map((data, index) => (
-                    <Card
-                      key={index}
-                      data={data}
-                      width={isScreenWidthLessThan1000 ? "200px" : "200px"}
-                      height={"200px"}
-                    />
-                  ))}
-                </div>
-              </div>
+           <DynamicNewsLayout news={news} isScreenWidthLessThan1000={isScreenWidthLessThan1000}/>
             </>
           </div>
           <div className="categories container p-4">
@@ -355,7 +388,7 @@ export default function Content() {
           </div>
           <div className="world-politics container p-4">
             <div className="heading">
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <p className="text-xl py-2">Tech world</p>
                 <hr
                   style={{
@@ -364,7 +397,7 @@ export default function Content() {
                     background: "#dfdfdf",
                   }}
                 />
-              </div>
+              </div> */}
             </div>
             <div>
               <Politics politics={politics} />

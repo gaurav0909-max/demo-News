@@ -3,7 +3,7 @@ import "./Trending.css";
 
 const Trending = ({ avatars, info }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [screenWidth, setScreenWidth] = useState();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // Initialize with window width
   const visibleAvatars = avatars.slice(currentIndex, currentIndex + 4);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Trending = ({ avatars, info }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [window]);
+  }, []);
 
   return (
     <div
@@ -25,13 +25,15 @@ const Trending = ({ avatars, info }) => {
       style={{
         background: "#dfdfdf",
         borderRadius: "15px",
+        padding: "10px", // Added padding for better spacing
       }}
     >
       {visibleAvatars
         .slice(0, screenWidth < 768 ? 1 : screenWidth < 1000 ? 2 : 3)
         .map((avatar, index) => (
           <a
-            href={info[index] && info[index].url}
+            key={currentIndex + index} // Added key for list items
+            href={info[currentIndex + index] && info[currentIndex + index].url}
             target="_blank"
             rel="noopener noreferrer"
             className="avatar"
@@ -41,15 +43,16 @@ const Trending = ({ avatars, info }) => {
               src={avatar}
               alt={`Avatar ${currentIndex + index + 1}`}
               className="rounded-avatar"
+              style={{ width: "100px", height: "100px", borderRadius: "50%" }} // Ensure avatar is round
             />
-            {info[index] && ( 
+            {info[currentIndex + index] && (
               <div style={{ padding: "10px" }}>
                 <p
                   style={{
                     fontSize: "14px",
                     width: "200px",
                     fontWeight: 600,
-                    fontFamily: "Maven pro",
+                    fontFamily: "Maven Pro",
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
@@ -57,10 +60,10 @@ const Trending = ({ avatars, info }) => {
                     maxHeight: "90px",
                   }}
                 >
-                  {info[index].title}
+                  {info[currentIndex + index].title}
                 </p>
                 <p style={{ fontSize: "10px" }}>
-                  {info[index].publishedAt}
+                  {info[currentIndex + index].publishedAt}
                 </p>
               </div>
             )}
